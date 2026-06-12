@@ -1,0 +1,154 @@
+body{
+    background-color: rgb(44, 1, 1) ;
+}
+
+.bg-header{
+    background-color: rgb(97, 3, 3);
+    padding-bottom: 25px;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.tiger{
+    width: 80px;
+    margin: 20px;
+    border-radius: 100%;
+}
+
+.text-button{
+    color: gold;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.text-button:hover{
+    animation: textanimation ;
+    animation-timing-function: 1;
+    animation-duration: 3s;
+    animation-delay: 0s;
+    
+}
+
+@keyframes textanimation {
+    0%{
+        color: gold;
+        text-decoration: none;
+        margin-left: 20px;
+    }
+    100%{
+        color: rgb(255, 255, 255);
+        font-size: 20px;
+        margin-left: 20px;
+    }
+    
+}
+
+
+
+.welcome{
+    font-family: verdana;
+    text-align: center;
+    font-size: 35px;
+    color: gold;
+    text-shadow: rgb(0, 0, 0) 2px 2px 2px;  
+    font-size: 60px;
+    justify-self: center;
+}
+
+.button{
+    border: none;
+    border-radius: 20px;
+    background-color: blue;
+    color: white;
+    margin: 20px;
+    width: 150px;
+}
+.button-all{
+    position: absolute;
+    right: 200px;
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+}
+
+
+.frame-sg{
+    padding-left: 50px;
+}
+
+.frame-homework{
+    color: white;
+    background-color: white;
+}
+
+.text-button-all{
+    margin: 20px;
+    font-size: 10px
+}
+
+
+/* iPad */
+@media screen and (max-width: 1024px) {
+
+    .button-all{
+        right: 50px;
+        width: 250px;
+        height: 250px;
+    }
+
+    .frame-sg{
+        width: 60%;
+        height: 500px;
+        padding-left: 20px;
+    }
+
+    .welcome{
+        font-size: 50px;
+    }
+
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+
+    .bg-header{
+        margin: 10px;
+    }
+
+    .tiger{
+        width: 60px;
+        margin: 10px;
+    }
+
+    .text-button{
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    .welcome{
+        font-size: 40px;
+    }
+
+    .button-all{
+        position: relative;
+        right: auto;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 300px;
+        height: 200px;
+    }
+
+    .frame-sg{
+        width: 100%;
+        height: 500px;
+        padding-left: 0;
+    }
+
+    .frame-homework{
+        width: 100%;
+        height: 600px;
+    }
+
+}
+
