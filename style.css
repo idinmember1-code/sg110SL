@@ -23,7 +23,7 @@ body{
 
 .text-button:hover{
     animation: textanimation ;
-    animation-timing-function: 1;
+    animation-timing-function: ease;
     animation-duration: 3s;
     animation-delay: 0s;
     
@@ -62,10 +62,40 @@ body{
     color: white;
     margin: 20px;
     width: 150px;
+    height: 60px;
+}
+.button-ing{
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(247, 0, 255);
+    color: white;
+    margin: 20px;
+    width: 150px;
+    height: 60px;
+}
+.button-ing:hover{
+    border: none;
+    border-radius: 20px;
+    background-color: white;
+    color: rgb(247, 0, 255);
+    margin: 20px;
+    width: 150px;
+    height: 60px;
+    border: 2px solid;
+}
+.button:hover{
+    border: none;
+    border-radius: 20px;
+    background-color: white;
+    color: blue;
+    border: 2px solid ;
+    margin: 20px;
+    width: 150px;
+    height: 60px;
 }
 .button-all{
     position: absolute;
-    right: 200px;
+    right: 180px;
     background-color: white;
     width: 300px;
     height: 300px;
@@ -84,8 +114,30 @@ body{
 
 .text-button-all{
     margin: 20px;
-    font-size: 10px
+    margin-top: 10px;
+    font-size: 30px
 }
+
+.post{
+    width: 200px;
+    position: relative;
+    margin-left: 40px;
+    margin-top: 20px;
+
+}
+.post:hover{
+    width: 200px;
+    position: relative;
+    margin-left: 40px;
+    margin-top: 20px;
+    opacity: 0%;
+}
+
+.logo{
+    width: 200px;
+}
+
+
 
 
 /* iPad */
@@ -150,5 +202,95 @@ body{
         height: 600px;
     }
 
+    .button-ing{
+        border: none;
+        border-radius: 20px;
+        background-color: rgb(247, 0, 255);
+        color: white;
+        margin: px;
+        width: 120px;
+        height: 60px;
+        position: absolute;
+        left: 155px;
+        top: 30px;
+        
+    }
+
+    .button-ing:hover{
+        border: none;
+        border-radius: 20px;
+        background-color: white;
+        color: rgb(247, 0, 255);
+        margin: 20px;
+        width: 120px;
+        height: 60px;
+        border: 2px solid;
+    }
+
 }
 
+
+
+.body-sigin{
+    background-color: gray;
+    position: absolute;
+    justify-self: center;
+    width: 50%;
+    height: 50%;
+    border-radius: 5px;
+}
+
+.textpassword{
+    margin: 30px;
+    font-size: 40px;
+    color: red;
+    animation: animacolor;
+    animation-timing-function: 1s;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes animacolor {
+    0%{
+        color: red;
+    }
+    50%{
+        color: blue;
+    }
+    100%{
+        color: red;
+    }
+}
+
+
+
+
+.inputtypetext{
+    margin: 30px ;
+    border: 5px solid blue;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.submitbutton{
+    margin: 30px;
+    border: 5px solid blue;
+    border-radius: 10px;
+    background-color: skyblue;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+}
+
+
+.submitbutton:hover{
+    margin: 30px;
+    border: 5px solid blue;
+    border-radius: 10px;
+    background-color: skyblue;
+    color: black;
+    padding: 10px;
+    font-size: 20px;
+    
+}
