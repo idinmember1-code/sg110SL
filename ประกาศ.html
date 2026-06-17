@@ -1,0 +1,707 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จดการบ้าน</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="tiger.png">
+</head> 
+<header class="bg-header">
+    <p>
+        <img src="tiger.png" class="tiger">
+        <a href="index.html" class="text-button">HOME</a>
+        <a href="จดการบ้าน.html" class="text-button">จดการบ้าน</a>
+        <a href="ประกาศ.html" class="text-button">ประกาศ</a>
+    </p>
+</header>
+<body>
+    <!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ประกาศ/การบ้าน</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Mitr:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:rgb(44, 1, 1);--surface:#FFFDF8;--surface2:#FDF8F0;
+  --terra:#B5541F;--terra-l:#D4713A;--terra-d:#8C3E13;
+  --sage:#6B9B70;--brown:#4A2F1A;--brown-m:#7A5035;--brown-s:#A87B5A;
+  --gold:#C89520;--border:rgba(90,50,20,.13);--border2:rgba(90,50,20,.22);
+  --sh:rgba(74,47,26,.12);--sh2:rgba(74,47,26,.22);
+  --red:#C0392B;--blue:#2471A3;--green:#1E8449;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--brown);min-height:100vh;
+  background-image:radial-gradient(ellipse 600px 400px at 0% 0%,rgba(181,84,31,.07),transparent 70%),
+  radial-gradient(ellipse 500px 400px at 100% 100%,rgba(107,155,112,.07),transparent 70%)}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:200;background:var(--surface);border-bottom:1px solid var(--border);
+  box-shadow:0 2px 16px var(--sh);height:64px;display:flex;align-items:center;padding:0 24px;gap:14px}
+.logo-box{width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--terra),var(--terra-d));
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+  box-shadow:0 4px 14px rgba(181,84,31,.35)}
+.site-name{font-family:'Mitr',sans-serif;font-size:20px;font-weight:600;color:var(--brown)}
+.site-sub{font-size:12px;color:var(--brown-s);margin-top:-2px}
+.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+
+.btn-login-top{padding:9px 20px;border-radius:50px;border:1.5px solid var(--border2);
+  background:var(--surface2);font-family:'Sarabun',sans-serif;font-size:13px;font-weight:700;
+  color:var(--terra);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.btn-login-top:hover{background:var(--terra);color:#fff;border-color:var(--terra);box-shadow:0 4px 14px rgba(181,84,31,.3)}
+
+.user-pill{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;
+  background:rgba(181,84,31,.08);border:1.5px solid rgba(181,84,31,.2);
+  border-radius:50px;font-size:13px;font-weight:700;color:var(--terra);cursor:pointer;
+  transition:all .2s;position:relative;display:none}
+.user-pill:hover{background:rgba(181,84,31,.14)}
+.uav{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--terra-d));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700}
+
+.u-drop{position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);
+  border:1px solid var(--border2);border-radius:14px;box-shadow:0 12px 36px var(--sh2);
+  min-width:180px;overflow:hidden;display:none;z-index:300;animation:dropIn .2s ease}
+@keyframes dropIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.u-drop.open{display:block}
+.dd-item{padding:12px 18px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;
+  gap:9px;transition:background .15s;color:var(--brown)}
+.dd-item:hover{background:var(--bg)}
+.dd-item.danger{color:var(--red)}
+.dd-item.danger:hover{background:rgba(192,57,43,.06)}
+.dd-div{height:1px;background:var(--border);margin:4px 0}
+
+/* OVERLAY / MODAL */
+.overlay{position:fixed;inset:0;background:rgba(30,15,5,.55);backdrop-filter:blur(4px);
+  z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;
+  animation:fadeO .2s ease}
+@keyframes fadeO{from{opacity:0}to{opacity:1}}
+.overlay.hidden{display:none!important}
+.modal{background:var(--surface);border-radius:24px;padding:40px 36px;width:100%;max-width:400px;
+  box-shadow:0 28px 64px var(--sh2);border:1px solid var(--border);
+  animation:slideM .3s cubic-bezier(.16,1,.3,1)}
+@keyframes slideM{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.m-head{text-align:center;margin-bottom:26px}
+.m-ico{font-size:40px;margin-bottom:10px}
+.m-title{font-family:'Mitr',sans-serif;font-size:22px;font-weight:600;color:var(--brown);margin-bottom:4px}
+.m-sub{font-size:13px;color:var(--brown-s)}
+.frow{margin-bottom:17px}
+.flbl{display:block;font-size:12px;font-weight:700;color:var(--brown-m);margin-bottom:7px;
+  letter-spacing:.5px;text-transform:uppercase}
+.finp{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:11px;
+  font-family:'Sarabun',sans-serif;font-size:15px;color:var(--brown);background:var(--bg);
+  outline:none;transition:all .2s}
+.finp:focus{border-color:var(--terra);background:#fff;box-shadow:0 0 0 3px rgba(181,84,31,.1)}
+.m-err{background:rgba(192,57,43,.08);border:1px solid rgba(192,57,43,.25);color:var(--red);
+  border-radius:9px;padding:9px 13px;font-size:13px;margin-bottom:14px;display:none;
+  animation:shk .35s ease}
+@keyframes shk{0%,100%{transform:translateX(0)}30%{transform:translateX(-5px)}70%{transform:translateX(5px)}}
+.m-ok{background:rgba(30,132,73,.07);border:1px solid rgba(30,132,73,.22);color:var(--green);
+  border-radius:9px;padding:9px 13px;font-size:13px;margin-bottom:14px;display:none}
+.btn-p{width:100%;padding:14px;background:linear-gradient(135deg,var(--terra),var(--terra-d));
+  color:#fff;border:none;border-radius:12px;font-family:'Mitr',sans-serif;font-size:16px;
+  font-weight:500;cursor:pointer;transition:all .25s;box-shadow:0 6px 20px rgba(181,84,31,.3)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(181,84,31,.4)}
+.btn-s{width:100%;padding:12px;background:transparent;border:1.5px solid var(--border2);
+  color:var(--brown-m);border-radius:12px;font-family:'Sarabun',sans-serif;font-size:14px;
+  font-weight:600;cursor:pointer;transition:all .2s;margin-top:10px}
+.btn-s:hover{background:var(--bg)}
+
+/* PAGE */
+.page{max-width:740px;margin:0 auto;padding:36px 18px 72px}
+.b-hero{text-align:center;margin-bottom:30px}
+.b-hero h1{font-family:'Mitr',sans-serif;font-size:28px;font-weight:600;color:var(--brown);margin-bottom:5px}
+.b-hero p{font-size:14px;color:var(--brown-s)}
+.stats-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.stat-chip{padding:5px 16px;border-radius:50px;background:var(--surface);border:1px solid var(--border);
+  font-size:13px;font-weight:600;color:var(--brown-m);display:flex;align-items:center;gap:5px}
+
+/* COMPOSER */
+.composer{background:var(--surface);border-radius:20px;padding:26px;margin-bottom:28px;
+  border:1px solid var(--border);box-shadow:0 4px 20px var(--sh);display:none;
+  animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.composer.show{display:block}
+.c-head{font-family:'Mitr',sans-serif;font-size:15px;font-weight:500;color:var(--brown);
+  margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.adm-badge{font-size:11px;background:linear-gradient(135deg,var(--gold),#E5B030);color:#fff;
+  padding:3px 9px;border-radius:20px;font-family:'Sarabun',sans-serif;font-weight:700}
+
+.type-tabs{display:flex;gap:8px;margin-bottom:14px}
+.ttab{padding:8px 20px;border-radius:50px;border:1.5px solid var(--border);background:var(--bg);
+  font-family:'Sarabun',sans-serif;font-size:13px;font-weight:600;color:var(--brown-s);
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
+.ttab:hover{border-color:var(--terra-l);color:var(--terra)}
+.ttab.on{background:var(--terra);border-color:var(--terra);color:#fff;box-shadow:0 4px 12px rgba(181,84,31,.3)}
+
+.cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.cchip{padding:5px 14px;border-radius:50px;border:1.5px solid var(--border);font-size:12px;
+  font-weight:700;cursor:pointer;transition:all .2s;background:var(--bg);color:var(--brown-s)}
+.cchip.on-ด่วน{background:rgba(192,57,43,.09);border-color:rgba(192,57,43,.3);color:var(--red)}
+.cchip.on-ประกาศ{background:rgba(181,84,31,.09);border-color:rgba(181,84,31,.3);color:var(--terra)}
+.cchip.on-แจ้งซ่อม{background:rgba(36,113,163,.09);border-color:rgba(36,113,163,.3);color:var(--blue)}
+.cchip.on-กิจกรรม{background:rgba(200,149,32,.1);border-color:rgba(200,149,32,.3);color:var(--gold)}
+.cchip.on-ทั่วไป{background:rgba(107,155,112,.1);border-color:rgba(107,155,112,.3);color:var(--sage)}
+
+textarea.ta{width:100%;min-height:96px;padding:13px 15px;border:1.5px solid var(--border);
+  border-radius:12px;font-family:'Sarabun',sans-serif;font-size:15px;color:var(--brown);
+  background:var(--bg);resize:vertical;outline:none;transition:all .2s;line-height:1.65}
+textarea.ta:focus{border-color:var(--terra);background:#fff;box-shadow:0 0 0 3px rgba(181,84,31,.08)}
+
+.drop-z{border:2px dashed var(--border);border-radius:12px;padding:24px;text-align:center;
+  cursor:pointer;transition:all .25s;background:var(--bg);margin-top:12px;
+  flex-direction:column;align-items:center;gap:6px;display:none}
+.drop-z.vis{display:flex}
+.drop-z:hover,.drop-z.drag{border-color:var(--terra-l);background:rgba(181,84,31,.04)}
+.drop-ico{font-size:30px}
+.drop-txt{font-size:13px;color:var(--brown-s)}
+.drop-txt b{color:var(--terra);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+
+.prev-wrap{position:relative;margin-top:12px;border-radius:12px;overflow:hidden;display:none}
+.prev-wrap img{width:100%;max-height:280px;object-fit:cover;display:block}
+.rm-img{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(0,0,0,.55);
+  color:#fff;border:none;border-radius:50%;font-size:15px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center}
+.rm-img:hover{background:rgba(192,57,43,.8)}
+
+.c-foot{display:flex;align-items:center;justify-content:flex-end;margin-top:14px;gap:10px}
+.cc{font-size:12px;color:var(--brown-s);margin-right:auto}
+.btn-post{padding:11px 26px;background:linear-gradient(135deg,var(--terra),var(--terra-d));
+  color:#fff;border:none;border-radius:50px;font-family:'Mitr',sans-serif;font-size:15px;
+  cursor:pointer;transition:all .25s;box-shadow:0 4px 14px rgba(181,84,31,.3)}
+.btn-post:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(181,84,31,.4)}
+
+/* FILTER */
+.fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.flbl2{font-size:12px;font-weight:700;color:var(--brown-s);text-transform:uppercase;letter-spacing:.5px}
+.fchip{padding:6px 15px;border-radius:50px;border:1.5px solid var(--border);
+  background:var(--surface);font-family:'Sarabun',sans-serif;font-size:13px;
+  color:var(--brown-s);cursor:pointer;transition:all .2s;font-weight:500}
+.fchip:hover{border-color:var(--terra-l)}
+.fchip.on{background:var(--brown);border-color:var(--brown);color:#fff;box-shadow:0 3px 10px rgba(74,47,26,.25)}
+
+/* POSTS */
+.feed{display:flex;flex-direction:column;gap:16px}
+.pcard{background:var(--surface);border-radius:18px;border:1px solid var(--border);
+  overflow:hidden;box-shadow:0 4px 16px var(--sh);transition:transform .2s,box-shadow .2s;
+  animation:fadeUp .35s ease}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--sh2)}
+.pcard-img{width:100%;max-height:380px;object-fit:cover;display:block;cursor:zoom-in;transition:transform .3s}
+.pcard-img:hover{transform:scale(1.01)}
+.pcard-body{padding:18px 20px 15px}
+.pmeta{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.pav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--terra-d));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;flex-shrink:0}
+.pname{font-size:13px;font-weight:700;color:var(--brown);display:flex;align-items:center;gap:5px}
+.ptime{font-size:11px;color:var(--brown-s);margin-top:1px}
+.cbadge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0;margin-left:auto}
+.cb-ด่วน{background:rgba(192,57,43,.1);color:var(--red)}
+.cb-ประกาศ{background:rgba(181,84,31,.1);color:var(--terra)}
+.cb-แจ้งซ่อม{background:rgba(36,113,163,.1);color:var(--blue)}
+.cb-กิจกรรม{background:rgba(200,149,32,.1);color:var(--gold)}
+.cb-ทั่วไป{background:rgba(107,155,112,.12);color:var(--sage)}
+.ptext{font-size:15px;color:var(--brown);line-height:1.7;margin-bottom:13px;white-space:pre-wrap;word-break:break-word}
+.pact{display:flex;align-items:center;gap:2px;padding-top:11px;border-top:1px solid rgba(74,47,26,.08)}
+.abt{padding:7px 14px;border-radius:50px;border:none;background:transparent;
+  font-family:'Sarabun',sans-serif;font-size:13px;font-weight:600;color:var(--brown-s);
+  cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s}
+.abt:hover{background:rgba(181,84,31,.07);color:var(--terra)}
+.abt.liked{color:var(--red)}
+.del-btn{margin-left:auto;color:var(--brown-s)!important}
+.del-btn:hover{background:rgba(192,57,43,.1)!important;color:var(--red)!important}
+
+.empty{text-align:center;padding:56px 20px;color:var(--brown-s)}
+.empty-i{font-size:52px;margin-bottom:12px;opacity:.45}
+
+/* LIGHTBOX */
+.lbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;
+  justify-content:center;z-index:999;padding:20px;cursor:zoom-out;backdrop-filter:blur(6px)}
+.lbox.on{display:flex;animation:fadeO .2s ease}
+.lbox img{max-width:100%;max-height:90vh;border-radius:12px;cursor:default;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.lbx-close{position:fixed;top:18px;right:22px;color:#fff;font-size:30px;cursor:pointer;
+  border:none;background:none;opacity:.7;transition:opacity .2s;line-height:1}
+.lbx-close:hover{opacity:1}
+
+/* TOAST */
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:var(--brown);color:#fff;padding:11px 22px;border-radius:50px;font-size:14px;
+  font-weight:600;box-shadow:0 8px 24px var(--sh2);z-index:9999;opacity:0;
+  transition:opacity .28s,transform .28s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:rgba(181,84,31,.22);border-radius:3px}
+@media(max-width:560px){
+  .topbar{padding:0 14px}
+  .site-name{font-size:17px}
+  .page{padding:24px 13px 60px}
+  .modal{padding:30px 22px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo-box">🏠</div>
+  <div>
+    <div class="color-text">ประกาศ/การบ้าน</div>
+    <div class="site-sub" id="houseSub">กำลังโหลด...</div>
+  </div>
+  <div class="tb-right">
+    <button class="btn-login-top" id="btnLoginTop" onclick="openLoginModal()">🔐 เข้าสู่ระบบ Admin</button>
+    <div class="user-pill" id="userPill" onclick="toggleDrop()">
+      <div class="uav">A</div>
+      <span>แอดมิน 👑</span>
+      <span style="font-size:10px;opacity:.6">▾</span>
+      <div class="u-drop" id="uDrop">
+        <div class="dd-item" onclick="openCP(event)">🔑 เปลี่ยนรหัสผ่าน</div>
+        <div class="dd-div"></div>
+        <div class="dd-item danger" onclick="doLogout(event)">🚪 ออกจากระบบ</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- BOARD -->
+<div class="page">
+  <div class="b-hero">
+    <h1>📋 ประกาศ/การบ้าน</h1>
+    <p>ข้อมูล ประกาศ และ  การบ้าน</p>
+    <div class="stats-row">
+      <div class="stat-chip">📌 <span id="statTotal">0</span> โพสต์</div>
+      <div class="stat-chip">🚨 <span id="statUrgent">0</span> ด่วน</div>
+      <div class="stat-chip" id="adminChip" style="display:none">👑 โหมดแอดมิน</div>
+    </div>
+  </div>
+
+  <!-- COMPOSER (admin only) -->
+  <div class="composer" id="composer">
+    <div class="c-head">✍️ สร้างโพสต์ใหม่ <span class="adm-badge">ADMIN</span></div>
+    <div class="type-tabs">
+      <button class="ttab on" id="tText" onclick="switchType('text')">📝 ข้อความ</button>
+      <button class="ttab" id="tPhoto" onclick="switchType('photo')">📷 + รูปภาพ</button>
+    </div>
+    <div class="cats" id="catRow">
+      <span class="cchip" data-c="ทั่วไป" onclick="pickCat(this)">💬 ทั่วไป</span>
+      <span class="cchip" data-c="ประกาศ" onclick="pickCat(this)">📣 ประกาศ</span>
+      <span class="cchip" data-c="ด่วน" onclick="pickCat(this)">🚨 ด่วน</span>
+      <span class="cchip" data-c="แจ้งซ่อม" onclick="pickCat(this)">🔧 แจ้งซ่อม</span>
+      <span class="cchip" data-c="กิจกรรม" onclick="pickCat(this)">🎉 กิจกรรม</span>
+    </div>
+    <textarea class="ta" id="postTa" placeholder="พิมพ์ข้อความที่นี่..." maxlength="500" oninput="updateCC()"></textarea>
+    <div style="text-align:right;margin-top:4px"><span class="cc" id="ccTxt">0 / 500</span></div>
+    <div class="drop-z" id="dropZ"
+      ondragover="event.preventDefault();this.classList.add('drag')"
+      ondragleave="this.classList.remove('drag')"
+      ondrop="onDrop(event)"
+      onclick="document.getElementById('fInput').click()">
+      <div class="drop-ico">🖼️</div>
+      <div class="drop-txt">ลากรูปมาวาง หรือ <b>คลิกเพื่อเลือก</b></div>
+      <input type="file" id="fInput" accept="image/*" onchange="onFileInput(this.files[0])">
+    </div>
+    <div class="prev-wrap" id="prevWrap">
+      <img id="prevImg" src="" alt="">
+      <button class="rm-img" onclick="removeImg()">✕</button>
+    </div>
+    <div class="c-foot">
+      <button class="btn-post" onclick="doPost()">โพสต์ 🚀</button>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="fbar">
+    <span class="flbl2">กรอง</span>
+    <button class="fchip on" data-f="ทั้งหมด" onclick="setFilter(this)">ทั้งหมด</button>
+    <button class="fchip" data-f="ประกาศ" onclick="setFilter(this)">📣 ประกาศ</button>
+    <button class="fchip" data-f="ด่วน" onclick="setFilter(this)">🚨 ด่วน</button>
+    <button class="fchip" data-f="ทั่วไป" onclick="setFilter(this)">💬 ทั่วไป</button>
+  </div>
+
+  <div class="feed" id="feed"></div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="overlay hidden" id="loginOverlay" onclick="bgClose(event,'loginOverlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="m-head">
+      <div class="m-ico">🔐</div>
+      <div class="m-title">เข้าสู่ระบบ Admin</div>
+      <div class="m-sub">กรอกข้อมูลเพื่อจัดการบอร์ด</div>
+    </div>
+    <div class="m-err" id="loginErr"></div>
+    <div class="frow">
+      <label class="flbl">ชื่อผู้ใช้</label>
+      <input class="finp" id="loginUser" type="text" value="admin" autocomplete="username">
+    </div>
+    <div class="frow">
+      <label class="flbl">รหัสผ่าน</label>
+      <input class="finp" id="loginPass" type="password" placeholder="••••••••"
+        autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-p" onclick="doLogin()">เข้าสู่ระบบ</button>
+    <button class="btn-s" onclick="closeModal('loginOverlay')">ยกเลิก</button>
+  </div>
+</div>
+
+<!-- CHANGE PASS MODAL -->
+<div class="overlay hidden" id="cpOverlay" onclick="bgClose(event,'cpOverlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="m-head">
+      <div class="m-ico">🔑</div>
+      <div class="m-title">เปลี่ยนรหัสผ่าน</div>
+      <div class="m-sub">ตั้งรหัสผ่านใหม่สำหรับแอดมิน</div>
+    </div>
+    <div class="m-err" id="cpErr"></div>
+    <div class="m-ok" id="cpOk">✅ เปลี่ยนรหัสผ่านสำเร็จ!</div>
+    <div class="frow">
+      <label class="flbl">รหัสผ่านปัจจุบัน</label>
+      <input class="finp" id="cpOld" type="password" placeholder="••••••••">
+    </div>
+    <div class="frow">
+      <label class="flbl">รหัสผ่านใหม่</label>
+      <input class="finp" id="cpNew" type="password" placeholder="อย่างน้อย 4 ตัวอักษร">
+    </div>
+    <div class="frow">
+      <label class="flbl">ยืนยันรหัสผ่านใหม่</label>
+      <input class="finp" id="cpCon" type="password" placeholder="พิมพ์ซ้ำ"
+        onkeydown="if(event.key==='Enter')doChangePass()">
+    </div>
+    <button class="btn-p" onclick="doChangePass()">บันทึก</button>
+    <button class="btn-s" onclick="closeModal('cpOverlay')">ยกเลิก</button>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="overlay hidden" id="delOverlay" onclick="bgClose(event,'delOverlay')">
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:340px;text-align:center">
+    <div class="m-ico">🗑️</div>
+    <div class="m-title" style="margin-bottom:8px">ลบโพสต์นี้?</div>
+    <p style="font-size:14px;color:var(--brown-s);margin-bottom:24px">โพสต์จะหายไปถาวร ไม่สามารถกู้คืนได้</p>
+    <button class="btn-p" style="background:linear-gradient(135deg,#c0392b,#922b21);box-shadow:0 6px 20px rgba(192,57,43,.3)" onclick="confirmDel()">ลบเลย</button>
+    <button class="btn-s" onclick="closeModal('delOverlay')">ยกเลิก</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lbox" id="lbox" onclick="closeLbox()">
+  <button class="lbx-close" onclick="closeLbox()">✕</button>
+  <img id="lbImg" src="" alt="" onclick="event.stopPropagation()">
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── STORAGE ── */
+const LS = {
+  get:(k,d)=>{ try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch{return d} },
+  set:(k,v)=>{ try{localStorage.setItem(k,JSON.stringify(v))}catch(e){console.warn(e)} }
+};
+
+/* ── DEFAULTS ── */
+const DEF_PASS = '1234'; /*หรัสผ่านตรงนี้ไม่ใช่ของจริงนะ ไอพวกโจรทั้งหลาย*/
+const DEF_USER = 'admin';
+const HOUSE    = '';
+
+/* ── STATE ── */
+let isAdmin  = false;
+let posts    = [];
+let selCat   = 'ทั่วไป';
+let postTyp  = 'text';
+let pendImg  = null;
+let curFilt  = 'ทั้งหมด';
+
+/* ── BOOT ── */
+window.addEventListener('DOMContentLoaded', () => {
+  // seed once
+  if (LS.get('hb_posts', null) === null) {
+    const n = Date.now();
+    LS.set('hb_posts', [
+      {id:n-200000,cat:'ประกาศ',text:'📌 ขอแจ้งให้ผู้อยู่อาศัยทุกท่านทราบว่า\nมีการตรวจสอบมาตรวัดน้ำประจำเดือนนี้\nวันเสาร์ที่ 22 เวลา 09.00–15.00 น.\nกรุณาอยู่บ้านเพื่อความสะดวก',img:null,time:n-7200000,likes:5},
+      {id:n-400000,cat:'กิจกรรม',text:'🎉 ชวนทุกบ้านร่วม Big Cleaning Day!\nวันอาทิตย์ที่ 25 เวลา 08.00 น.\nณ สวนส่วนกลาง มีอาหารเช้าและของที่ระลึก 🎁',img:null,time:n-86400000,likes:14},
+      {id:n-600000,cat:'แจ้งซ่อม',text:'🔧 ซ่อมไฟส่วนกลางซอย 3 เสร็จเรียบร้อยแล้วนะครับ\nขอบคุณทุกท่านที่แจ้งเข้ามา',img:null,time:n-172800000,likes:3}
+    ]);
+  }
+  posts = LS.get('hb_posts', []);
+  document.getElementById('houseSub').textContent = HOUSE;
+  pickCatByName('ทั่วไป');
+  renderPosts();
+  updateStats();
+});
+
+/* ── AUTH ── */
+function getPass(){ return LS.get('hb_pass', DEF_PASS); }
+function getUser(){ return LS.get('hb_user', DEF_USER); }
+
+function openLoginModal(){
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginErr').style.display = 'none';
+  document.getElementById('loginOverlay').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('loginPass').focus(), 150);
+}
+
+function doLogin(){
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if(u === getUser() && p === getPass()){
+    isAdmin = true;
+    closeModal('loginOverlay');
+    document.getElementById('btnLoginTop').style.display = 'none';
+    document.getElementById('userPill').style.display   = 'flex';
+    document.getElementById('composer').classList.add('show');
+    document.getElementById('adminChip').style.display  = 'flex';
+    renderPosts();
+    toast('✅ ยินดีต้อนรับ แอดมิน!');
+  } else {
+    showErr('loginErr','❌ ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+  }
+}
+
+function doLogout(e){
+  if(e){ e.stopPropagation(); }
+  isAdmin = false;
+  closeDrop();
+  document.getElementById('btnLoginTop').style.display = 'flex';
+  document.getElementById('userPill').style.display   = 'none';
+  document.getElementById('composer').classList.remove('show');
+  document.getElementById('adminChip').style.display  = 'none';
+  renderPosts();
+  toast('👋 ออกจากระบบแล้ว');
+}
+
+/* ── CHANGE PASS ── */
+function openCP(e){
+  e.stopPropagation();
+  closeDrop();
+  ['cpOld','cpNew','cpCon'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cpErr').style.display = 'none';
+  document.getElementById('cpOk').style.display  = 'none';
+  document.getElementById('cpOverlay').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('cpOld').focus(), 150);
+}
+
+function doChangePass(){
+  const old = document.getElementById('cpOld').value;
+  const nw  = document.getElementById('cpNew').value;
+  const con = document.getElementById('cpCon').value;
+  if(old !== getPass()){ showErr('cpErr','❌ รหัสผ่านเดิมไม่ถูกต้อง'); return; }
+  if(nw.length < 4)    { showErr('cpErr','❌ ต้องมีอย่างน้อย 4 ตัวอักษร'); return; }
+  if(nw !== con)       { showErr('cpErr','❌ รหัสผ่านใหม่ไม่ตรงกัน'); return; }
+  document.getElementById('cpErr').style.display = 'none';
+  LS.set('hb_pass', nw);
+  document.getElementById('cpOk').style.display = 'block';
+  setTimeout(()=>closeModal('cpOverlay'), 1400);
+  toast('🔑 เปลี่ยนรหัสผ่านสำเร็จ!');
+}
+
+/* ── DROPDOWN ── */
+function toggleDrop(){ document.getElementById('uDrop').classList.toggle('open'); }
+function closeDrop(){ document.getElementById('uDrop').classList.remove('open'); }
+document.addEventListener('click', e=>{
+  const pill = document.getElementById('userPill');
+  if(pill && !pill.contains(e.target)) closeDrop();
+});
+
+/* ── MODAL HELPERS ── */
+function closeModal(id){ document.getElementById(id).classList.add('hidden'); }
+function bgClose(e,id){ if(e.target===document.getElementById(id)) closeModal(id); }
+function showErr(id,msg){
+  const el = document.getElementById(id);
+  el.textContent = msg; el.style.display = 'block';
+  el.style.animation = 'none';
+  requestAnimationFrame(()=>{ el.style.animation = 'shk .35s ease'; });
+}
+
+/* ── COMPOSER ── */
+function switchType(t){
+  postTyp = t;
+  document.getElementById('tText').classList.toggle('on', t==='text');
+  document.getElementById('tPhoto').classList.toggle('on', t==='photo');
+  const dz = document.getElementById('dropZ');
+  if(t==='photo') dz.classList.add('vis'); else { dz.classList.remove('vis'); removeImg(); }
+}
+
+function pickCat(el){
+  document.querySelectorAll('.cchip').forEach(c=>c.className='cchip');
+  selCat = el.dataset.c;
+  el.classList.add('on-'+selCat);
+}
+function pickCatByName(name){
+  const el = document.querySelector(`.cchip[data-c="${name}"]`);
+  if(el) pickCat(el);
+}
+
+function updateCC(){
+  const len = document.getElementById('postTa').value.length;
+  document.getElementById('ccTxt').textContent = len+' / 500';
+}
+
+function onDrop(e){
+  e.preventDefault();
+  document.getElementById('dropZ').classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if(f && f.type.startsWith('image/')) onFileInput(f);
+}
+
+function onFileInput(f){
+  if(!f) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX = 1200;
+      let w=img.width, h=img.height;
+      if(w>MAX){ h=Math.round(h*MAX/w); w=MAX; }
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      pendImg = canvas.toDataURL('image/jpeg',0.78);
+      document.getElementById('prevImg').src = pendImg;
+      document.getElementById('prevWrap').style.display = 'block';
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(f);
+}
+
+function removeImg(){
+  pendImg = null;
+  document.getElementById('prevImg').src = '';
+  document.getElementById('prevWrap').style.display = 'none';
+  document.getElementById('fInput').value = '';
+}
+
+function doPost(){
+  const txt = document.getElementById('postTa').value.trim();
+  if(!txt && !pendImg){ toast('⚠️ พิมพ์ข้อความหรือเลือกรูปก่อนนะ'); return; }
+  const p = {id:Date.now(), cat:selCat, text:txt, img:pendImg, time:Date.now(), likes:0};
+  posts.unshift(p);
+  savePosts();
+  document.getElementById('postTa').value = '';
+  updateCC(); removeImg();
+  renderPosts(); updateStats();
+  toast('✅ โพสต์เรียบร้อย!');
+  window.scrollTo({top:document.getElementById('feed').offsetTop-80,behavior:'smooth'});
+}
+
+function savePosts(){ LS.set('hb_posts', posts); }
+
+/* ── FILTER ── */
+function setFilter(btn){
+  curFilt = btn.dataset.f;
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('on'));
+  btn.classList.add('on');
+  renderPosts();
+}
+
+/* ── RENDER ── */
+const catEmoji = {ด่วน:'🚨',ประกาศ:'📣',แจ้งซ่อม:'🔧',กิจกรรม:'🎉',ทั่วไป:'💬'};
+
+function renderPosts(){
+  const feed = document.getElementById('feed');
+  const list = curFilt==='ทั้งหมด' ? posts : posts.filter(p=>p.cat===curFilt);
+
+  if(!list.length){
+    feed.innerHTML = `<div class="empty"><div class="empty-i">📭</div><p>ยังไม่มีโพสต์ในหมวดนี้</p></div>`;
+    return;
+  }
+
+  const likedSet = LS.get('hb_liked',[]);
+  feed.innerHTML = list.map(p=>{
+    const liked = likedSet.includes(p.id);
+    return `<div class="pcard" id="pc-${p.id}">
+      ${p.img ? `<img class="pcard-img" src="${p.img}" alt="รูปโพสต์" onclick="openLbox(${p.id})">` : ''}
+      <div class="pcard-body">
+        <div class="pmeta">
+          <div class="pav">A</div>
+          <div>
+            <div class="pname">แอดมิน <span style="color:var(--gold);font-size:11px">👑</span></div>
+            <div class="ptime">🕐 ${fmtTime(p.time)}</div>
+          </div>
+          <span class="cbadge cb-${p.cat}">${catEmoji[p.cat]||'📌'} ${p.cat}</span>
+        </div>
+        ${p.text ? `<div class="ptext">${esc(p.text)}</div>` : ''}
+        <div class="pact">
+          <button class="abt${liked?' liked':''}" onclick="toggleLike(${p.id})">
+            ${liked?'❤️':'🤍'} <span id="lc-${p.id}">${p.likes||0}</span>
+          </button>
+          ${isAdmin ? `<button class="abt del-btn" onclick="delPost(${p.id})">🗑️ ลบ</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ── LIKE ── */
+function toggleLike(id){
+  const p = posts.find(x=>x.id===id); if(!p) return;
+  const liked = LS.get('hb_liked',[]);
+  const idx = liked.indexOf(id);
+  if(idx===-1){ liked.push(id); p.likes=(p.likes||0)+1; }
+  else{ liked.splice(idx,1); p.likes=Math.max(0,(p.likes||1)-1); }
+  LS.set('hb_liked',liked); savePosts();
+  const btn = document.querySelector(`#pc-${id} .abt`);
+  const lc  = document.getElementById('lc-'+id);
+  if(btn){ btn.className='abt'+(idx===-1?' liked':''); btn.childNodes[0].textContent=idx===-1?'❤️':'🤍'; }
+  if(lc) lc.textContent = p.likes;
+}
+
+/* ── DELETE ── */
+let _delId = null;
+function delPost(id){
+  _delId = id;
+  document.getElementById('delOverlay').classList.remove('hidden');
+}
+function confirmDel(){
+  if(_delId===null) return;
+  posts = posts.filter(p=>p.id!==_delId);
+  _delId = null;
+  closeModal('delOverlay');
+  savePosts(); renderPosts(); updateStats();
+  toast('🗑️ ลบโพสต์แล้ว');
+}
+
+/* ── STATS ── */
+function updateStats(){
+  document.getElementById('statTotal').textContent  = posts.length;
+  document.getElementById('statUrgent').textContent = posts.filter(p=>p.cat==='ด่วน').length;
+}
+
+/* ── LIGHTBOX ── */
+function openLbox(id){
+  const p = posts.find(x=>x.id===id); if(!p||!p.img) return;
+  document.getElementById('lbImg').src = p.img;
+  document.getElementById('lbox').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeLbox(){
+  document.getElementById('lbox').classList.remove('on');
+  document.body.style.overflow='';
+}
+
+/* ── TOAST ── */
+let _tt;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(_tt); _tt=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ── UTILS ── */
+function fmtTime(ts){
+  const d=Math.floor((Date.now()-ts)/1000);
+  if(d<60)     return 'เมื่อกี้';
+  if(d<3600)   return Math.floor(d/60)+' นาทีที่แล้ว';
+  if(d<86400)  return Math.floor(d/3600)+' ชั่วโมงที่แล้ว';
+  if(d<604800) return Math.floor(d/86400)+' วันที่แล้ว';
+  return new Date(ts).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'2-digit'});
+}
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+</body>
+</html>
+</body>
+</html>
